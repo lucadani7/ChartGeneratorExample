@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  padding: 0;
+}
+
+.app__title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.form-container__label {
+  font-weight: bold;
+}
+.form-container__input, .form-container__select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.form-container__button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #4BC0C0;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+.form-container__button:hover {
+  background-color: #38a0a0;
+}
+
+.chart-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.chart-container__canvas {
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .form-container {
+    padding: 10px;
+  }
+  .chart-container {
+    max-width: 100%;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

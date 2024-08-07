@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chart Generator Example</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="app">
+<h1 class="app__title">Chart Generator Example</h1>
+<div class="form-container">
+    <label for="labels" class="form-container__label">Labels (comma-separated):</label><br>
+    <input type="text" id="labels" class="form-container__input" placeholder="e.g., January, February, March"><br><br>
+
+    <label for="data" class="form-container__label">Data (comma-separated):</label><br>
+    <input type="text" id="data" class="form-container__input" placeholder="e.g., 65, 59, 80"><br><br>
+
+    <label for="chartType" class="form-container__label">Select Chart Type:</label><br>
+    <select id="chartType" class="form-container__select">
+        <option value="bar">Bar</option>
+        <option value="line">Line</option>
+        <option value="pie">Pie</option>
+        <option value="doughnut">Doughnut</option>
+    </select><br><br>
+
+    <button id="generate-chart" class="form-container__button">Generate Chart</button>
+</div>
+
+<div class="chart-container">
+    <canvas id="canvas" class="chart-container__canvas"></canvas>
+</div>
+
+<script>
+    let myChart;
+
+    document.getElementById('generate-chart').addEventListener('click', () => {
+        // getting input values
+        const labelsInput = document.getElementById('labels').value;
+        const dataInput = document.getElementById('data').value;
+        const chartType = document.getElementById('chartType').value;
+
+        // parsing input values into array
+        const labels = labelsInput.split(',').map(label => label.trim());
+        const data = dataInput.split(',').map(num => parseInt(num.trim()));
+
+        // checking data validation
+        if (labels.length === 0 || data.length === 0 || data.some(isNaN)) {
+            alert('Please enter valid labels and data.');
+            return;
+        }
+
+        const colors = labels.map(() => {
+            const r = Math.floor(Math.random() * 256);
+            const g = Math.floor(Math.random() * 256);
+            const b = Math.floor(Math.random() * 256);
+            return `rgba(${r}, ${g}, ${b}, 0.5)`; // Set opacity to 0.5 for the background
+        });
+
+        const chartData = {
+            labels: labels,
+            datasets: [{
+                label: 'User Data',
+                backgroundColor: colors,
+                borderColor: colors.map(color => color.replace('0.5', '1')), // Make border fully opaque
+                borderWidth: 1,
+                data: data,
+            }]
+        };
+
+
+        const ctx = document.getElementById('canvas').getContext('2d');
+        if (myChart) {
+            myChart.destroy();
+        }
+        myChart = new Chart(ctx, {
+            type: chartType, // Use the selected chart type
+            data: chartData,
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>
